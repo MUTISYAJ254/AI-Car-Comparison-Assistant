@@ -1,85 +1,37 @@
-# 🚗 AI Car Comparison Assistant
+# AI Car Comparison Assistant
 
-The **AI Car Comparison Assistant** is a web-based application that allows users to compare two cars side-by-side and receive **AI-generated insights and recommendations**.  
-It helps car buyers, mechanics, and dealerships make informed decisions based on performance, fuel efficiency, maintenance cost, and overall value.
+## What
+Full-stack website that compares two cars using a rule-based AI scoring module with optional LLM explanations.
 
----
+## How to run
+1. Backend:
+   - `cd backend`
+   - `python -m venv venv`
+   - `source venv/bin/activate` (mac/linux)
+   - `./venv/Scripts/Activate.ps1` (windows PowerShell)
+   - `pip install -r requirements.txt`
+   - `cp .env.example .env`
+   - `uvicorn app.main:app --reload --port 8000`
 
-## 📌 Project Overview
+2. Frontend:
+   - `cd frontend`
+   - `npm install`
+   - `npm run dev`
+   - open `http://localhost:5173`
 
-Choosing the right car is difficult due to:
-- Too many car models on the market  
-- Scattered or inconsistent car information  
-- Technical specifications that are hard for users to interpret  
-- No intelligent system that can explain which car is better for specific needs  
+## Notes
+- Database: `backend/cars.db` will be created automatically and persists.
+- To use OpenAI LLM explanations, fill `.env` with `USE_OPENAI=true` and `OPENAI_API_KEY=...`
 
-This project solves that problem by combining **AI reasoning**, **structured car data**, and a **clean web interface**.
+## Optional improvements & submission tips (for PLP)
+- Replace cars.csv with a larger dataset (Kaggle car datasets). Keep data cleaning script if needed.
+- Add unit tests for `ai_module.py` scoring.
+- Add Dockerfiles to containerize backend + frontend.
+- Add CI (GitHub Actions) to run tests and linting.
+- Add sample recordings/screenshots of your demo.
+- Write a short report describing architecture, dataset, model, limitations, and ethics (bias in pricing, fairness).
 
----
-
-## 🎯 Features
-
-### ✔ Smart Car-to-Car Comparison  
-Choose any two cars and instantly view a detailed comparison.
-
-### ✔ AI Recommendation Engine  
-The system generates human-like advice based on:
-- Performance  
-- Fuel economy  
-- Maintenance cost  
-- Comfort & safety  
-- Affordability  
-
-### ✔ Scoring System  
-Each car receives a score based on:
-- Power  
-- Fuel usage  
-- Value for money  
-- Long-term cost  
-
-### ✔ Clean & Responsive UI  
-Frontend built with React for a smooth experience.
-
-### ✔ Fast REST API  
-Backend built with FastAPI for speed, clarity, and scalability.
-
----
-
-## 🏗 Tech Stack
-
-### **Frontend**
-- React  
-- Tailwind CSS  
-- Axios  
-
-### **Backend**
-- Python FastAPI  
-- SQLAlchemy ORM  
-- Pydantic  
-
-### **AI**
-- Rule-based comparison logic  
-- LLM-style explanation generator  
-- Weighted scoring model  
-
-### **Database**
-- SQLite (local development)  
-- PostgreSQL (optional for deployment)  
-
----
-
-## 🧠 How the AI Works
-
-1. System fetches car specifications from the database  
-2. Normalizes key fields (fuel use, horsepower, engine capacity, etc.)  
-3. Applies a **scoring algorithm** to each car  
-4. Compares the scores and technical values  
-5. Generates an **AI-written recommendation**, such as:
-
-> “Car A is more fuel-efficient and cheaper to maintain, while Car B offers better performance. Car A is recommended for daily commuting.”
-
----
-
-## 🗂 Project Structure
-
-# AI-Car-Comparison-Assistant
+## Quick troubleshooting
+- If CORS errors appear: ensure backend is running and CORS in `main.py` allows your frontend origin (for production change `allow_origins`).
+- If database not populated: ensure `backend/app/data/cars.csv` exists and contains rows before first run.
+- If `npm install` fails: make sure Node.js and npm are installed (Node >= 16 recommended).
